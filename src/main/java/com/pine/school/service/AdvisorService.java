@@ -17,10 +17,12 @@ public class AdvisorService {
         Optional<Student> student = studentRepository.findById(studentId);
 
         if (student.isPresent()) {
-            // Lógica para aprovar ou reprovar o aluno na recuperação
+            // Define se o aluno foi aprovado na recuperação
             Student updatedStudent = student.get();
             updatedStudent.setRecoveryApproved(approved);
             studentRepository.save(updatedStudent);
+        } else {
+            throw new RuntimeException("Student not found");
         }
     }
 }

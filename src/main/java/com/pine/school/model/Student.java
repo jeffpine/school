@@ -1,19 +1,31 @@
 package com.pine.school.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 
 @Entity
 public class Student {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private String name;
-    private int age;
-    private String registration;
+
+    @ManyToOne
+    @JoinColumn(name = "class_group_id")
+    private ClassGroup classGroup;
+
+    private Boolean recoveryApproved;
+
+    // Construtores, getters e setters
+
+    public Student() {
+    }
+
+    public Student(String name, ClassGroup classGroup) {
+        this.name = name;
+        this.classGroup = classGroup;
+    }
 
     public Long getId() {
         return id;
@@ -31,19 +43,19 @@ public class Student {
         this.name = name;
     }
 
-    public int getAge() {
-        return age;
+    public ClassGroup getClassGroup() {
+        return classGroup;
     }
 
-    public void setAge(int age) {
-        this.age = age;
+    public void setClassGroup(ClassGroup classGroup) {
+        this.classGroup = classGroup;
     }
 
-    public String getRegistration() {
-        return registration;
+    public Boolean getRecoveryApproved() {
+        return recoveryApproved;
     }
 
-    public void setRegistration(String registration) {
-        this.registration = registration;
+    public void setRecoveryApproved(Boolean recoveryApproved) {
+        this.recoveryApproved = recoveryApproved;
     }
 }
